@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#ff5a5f">
+<title>Math Blizch #2</title>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Nunito:wght@600;800;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#fff6f0;--bg2:#e9f8d8;--card:#ffffff;--line:#1c1b2e22;--ink:#1c1b2e;--mut:#6b6880;--key:#ffffff;--soft:#e9f8d8;--acc:#8be000;--accink:#14230a;--pink:#ff5a5f;--ok:#12b866;--bad:#ff4d5e;--sh:0 3px 0 #1c1b2e1f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#1d1536;--bg2:#12242a;--card:#2a2146;--line:#ffffff24;--ink:#f6f3ff;--mut:#b4aed4;--key:#352b58;--soft:#25364a;--sh:0 3px 0 #0006}}
+:root[data-theme="dark"]{--bg1:#1d1536;--bg2:#12242a;--card:#2a2146;--line:#ffffff24;--ink:#f6f3ff;--mut:#b4aed4;--key:#352b58;--soft:#25364a;--sh:0 3px 0 #0006}
+html,body{height:100%;margin:0}
+body{background:var(--bg1);background-image:linear-gradient(165deg,var(--bg1),var(--bg2));color:var(--ink);font-family:Nunito,system-ui,sans-serif;font-weight:800;-webkit-tap-highlight-color:transparent;user-select:none;touch-action:manipulation;overflow:hidden}
+#app{height:100%;max-width:480px;margin:0 auto;position:relative}
+.scr{position:absolute;inset:0;display:none;flex-direction:column;padding:14px 16px 16px;overflow-y:auto;gap:12px}
+.scr.on{display:flex}
+h1,h2{font-family:Bungee,Impact,sans-serif;font-weight:400;margin:0;color:var(--pink);text-align:center;letter-spacing:.5px}
+h1{font-size:clamp(34px,11vw,52px);line-height:1}
+h2{font-size:clamp(22px,7vw,30px)}
+button{font:inherit;color:inherit;border:0;cursor:pointer}
+.btn{border-radius:20px;padding:16px;font-size:20px;background:var(--card);box-shadow:var(--sh);border:2px solid var(--line)}
+.btn:active,.key:active{transform:translateY(2px);box-shadow:none}
+.pri{background:var(--acc);color:var(--accink);border-color:#14230a33;font-family:Bungee,sans-serif;font-size:22px}
+.card{background:var(--card);border:2.5px solid var(--line);border-radius:22px;padding:14px}
+.card.g{border-color:#12b866}.card.m{background:var(--soft)}
+.card h3{margin:0 0 8px;font-size:19px;text-align:center}
+.row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0;font-size:16px}
+.st{display:flex;align-items:center;gap:8px}
+.st button{width:42px;height:42px;border-radius:14px;background:var(--key);border:2px solid var(--line);font-size:16px;color:var(--mut)}
+.st b{min-width:44px;text-align:center;font-size:24px}
+.seg{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.seg button{padding:9px 14px;border-radius:14px;background:var(--key);border:2px solid var(--line);font-size:15px}
+.seg button.on{background:var(--acc);color:var(--accink);border-color:#14230a44}
+.sub{font-size:13px;color:var(--mut);font-weight:600;margin:2px 0 0;text-align:center}
+.prev{font-size:24px;text-align:center;padding:6px 0 2px;color:var(--pink)}
+.top{display:flex;align-items:center;gap:10px}
+.top .btn{padding:8px 14px;font-size:18px}
+.sp{flex:1}
+.hero{flex:1;display:flex;flex-direction:column;justify-content:center;gap:14px}
+.logo{font-size:64px;text-align:center}
+.bar{height:9px;border-radius:9px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;width:0;background:var(--acc);transition:width .15s linear}
+.bar.q i{background:var(--pink)}
+.hud{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.hud div{background:var(--card);border:2px solid var(--line);border-radius:16px;padding:8px 12px;font-size:13px;color:var(--mut)}
+.hud b{display:block;font-size:20px;color:var(--ink)}
+#disp{background:var(--card);border:2.5px solid var(--line);border-radius:24px;padding:18px 10px;text-align:center;min-height:130px;display:flex;flex-direction:column;justify-content:center;gap:6px;transition:background .15s,border-color .15s}
+#disp.ok{background:#12b86633;border-color:var(--ok)}
+#disp.no{background:#ff4d5e33;border-color:var(--bad);animation:sh .3s}
+@keyframes sh{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+#q{font-size:clamp(28px,9vw,40px);word-break:break-word;line-height:1.15}
+#a{font-family:Bungee,sans-serif;font-size:32px;color:var(--pink);min-height:40px}
+.pad{flex:1;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(4,1fr);gap:10px;min-height:260px}
+.key{border-radius:18px;background:var(--key);border:2px solid var(--line);box-shadow:var(--sh);font-size:30px}
+.key.c{background:#ffe3e3;color:#b4232f}.key.e{background:var(--acc);color:var(--accink);font-family:Bungee,sans-serif;font-size:20px;grid-column:4;grid-row:3/5}
+.rate{font-size:84px;font-family:Bungee,sans-serif;color:var(--acc);text-align:center;line-height:1;text-shadow:0 3px 0 #14230a33}
+.line{display:flex;justify-content:space-between;padding:7px 0;font-size:16px;border-bottom:1px dashed var(--line)}
+.line:last-child{border:0}
+.rule li{margin:6px 0;font-weight:600;font-size:15px}
+.ex{font-size:26px;text-align:center;margin:8px 0}
+@media (prefers-reduced-motion:reduce){#disp.no{animation:none}}
+</style></head><body><div id="app">
+
+<section class="scr on" id="home">
+ <div class="hero">
+  <div class="logo">➕✖️➖</div>
+  <h1>Math<br>Blizch #2</h1>
+  <p class="sub" id="best"></p>
+ </div>
+ <button class="btn pri" data-go="setup">Play</button>
+ <button class="btn" data-go="other">Other Feature</button>
+</section>
+
+<section class="scr" id="setup">
+ <div class="top"><button class="btn" data-go="home">←</button><div class="sp"></div></div>
+ <h2>Play – Custom</h2>
+ <div class="card g">
+  <h3>Difficult</h3>
+  <div class="row"><span>Max Operation</span><div class="st"><button data-k="ops" data-d="-1">▼</button><b id="v-ops"></b><button data-k="ops" data-d="1">▲</button></div></div>
+  <div class="row"><span>Max Value (digit)</span><div class="st"><button data-k="val" data-d="-1">▼</button><b id="v-val"></b><button data-k="val" data-d="1">▲</button></div></div>
+  <div class="row"><span>Type Value</span><div class="seg" data-t="tv"><button data-v="static">Static</button><button data-v="random">Random</button></div></div>
+  <div class="row"><span>Type Operation</span><div class="seg" data-t="to"><button data-v="static">Static</button><button data-v="random">Random</button></div></div>
+  <div class="row" id="sopRow"><span>Operasi</span><div class="seg" data-t="sop"><button data-v="+">+</button><button data-v="−">−</button><button data-v="×">×</button><button data-v="÷">÷</button></div></div>
+  <div class="prev" id="prev"></div>
+ </div>
+ <div class="card m">
+  <h3>Timer</h3>
+  <div class="row"><span>Minutes</span><div class="st"><button data-k="min" data-d="-1">▼</button><b id="v-min"></b><button data-k="min" data-d="1">▲</button></div></div>
+  <div class="row"><span>Seconds</span><div class="st"><button data-k="sec" data-d="-5">▼</button><b id="v-sec"></b><button data-k="sec" data-d="5">▲</button></div></div>
+  <p class="sub">Batas waktu seluruh game. 0 : 00 = tanpa batas.</p>
+ </div>
+ <div class="card">
+  <h3>Point</h3>
+  <div class="row"><span>Jumlah soal</span><div class="st"><button data-k="q" data-d="-5">▼</button><b id="v-q"></b><button data-k="q" data-d="5">▲</button></div></div>
+  <div class="row"><span>Dead timer / soal</span><div class="st"><button data-k="dead" data-d="-1">▼</button><b id="v-dead"></b><button data-k="dead" data-d="1">▲</button></div></div>
+  <p class="sub">∞ = bebas. Naikkan jadi 1 detik, 2 detik, dan seterusnya. Telat = dihitung salah.</p>
+ </div>
+ <button class="btn pri" id="go">Continue</button>
+</section>
+
+<section class="scr" id="other">
+ <div class="top"><button class="btn" data-go="home">←</button><div class="sp"></div></div>
+ <h2>Other</h2>
+ <div class="card g rule">
+  <h3>Rules</h3>
+  <div class="ex">47 + 6 + 887</div>
+  <ul>
+   <li>Jumlah nilainya ada 3 (Max Value = jumlah digit terbesar tiap angka).</li>
+   <li>Operasinya ada 2 (Max Operation = banyaknya tanda hitung).</li>
+   <li>Type Value Random: panjang tiap angka diacak, Static: selalu sebesar Max Value.</li>
+   <li>Type Operation Random: + − × ÷ diacak, Static: satu jenis saja.</li>
+   <li>Perkalian dan pembagian dihitung lebih dulu daripada tambah dan kurang. Hasil pembagian selalu bilangan bulat.</li>
+   <li>Rating = ketepatan, jumlah soal selesai, dan kecepatan.</li>
+  </ul>
+ </div>
+ <div class="card m">
+  <h3>Info</h3>
+  <div class="line"><span>Versi</span><span>2.0</span></div>
+  <div class="line"><span>Dibuat</span><span>Oktober 2026</span></div>
+  <div class="line"><span>Rekor rating</span><span id="best2">0</span></div>
+ </div>
+</section>
+
+<section class="scr" id="game">
+ <div class="top"><button class="btn" id="quit">✕</button><div class="bar sp"><i id="pb"></i></div></div>
+ <div class="hud">
+  <div>Soal<b id="h-q"></b></div><div>Benar<b id="h-r"></b></div>
+  <div id="h-tl">Timer<b id="h-t"></b></div><div>Dead timer<b id="h-d"></b></div>
+ </div>
+ <div class="bar q"><i id="qb"></i></div>
+ <div id="disp"><div id="q"></div><div id="a"></div></div>
+ <div class="pad" id="pad"></div>
+</section>
+
+<section class="scr" id="fin">
+ <div class="hero">
+  <h1 style="color:var(--ink)">Finish</h1>
+  <p class="sub" style="font-size:20px">Rating</p>
+  <div class="rate"><span id="rt">0</span> <span id="re"></span></div>
+  <p class="sub" id="rn"></p>
+ </div>
+ <div class="card g">
+  <div class="line"><span>Cleared</span><span id="f-c"></span></div>
+  <div class="line"><span>Benar</span><span id="f-r"></span></div>
+  <div class="line"><span>Akurasi</span><span id="f-a"></span></div>
+  <div class="line"><span>Time</span><span id="f-t"></span></div>
+  <div class="line"><span>Rata-rata / soal</span><span id="f-v"></span></div>
+ </div>
+ <button class="btn pri" id="again">Main lagi</button>
+ <button class="btn" data-go="home">Menu</button>
+</section>
+</div>
+
+<script>
+const $=s=>document.querySelector(s),$$=(s,r)=>[...(r||document).querySelectorAll(s)];
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+let cfg={ops:1,val:2,tv:'static',to:'static',sop:'+',min:1,sec:0,q:10,dead:0};
+try{Object.assign(cfg,JSON.parse(localStorage.getItem('mb2cfg')||'{}'))}catch(e){}
+let best=0;try{best=+localStorage.getItem('mb2best')||0}catch(e){}
+const R={ops:[1,5],val:[1,5],min:[0,9],sec:[0,55],q:[5,50],dead:[0,60]};
+const pad2=n=>String(n).padStart(2,'0');
+const fmt=ms=>{const s=Math.max(0,Math.ceil(ms/1000));return Math.floor(s/60)+':'+pad2(s%60)};
+function show(id){$$('.scr').forEach(s=>s.classList.toggle('on',s.id===id));if(id==='home'||id==='other'){$('#best').textContent=best?'Rekor rating: '+best:'Siap adu cepat hitung?';$('#best2').textContent=best}}
+function num(){const d=cfg.tv==='static'?cfg.val:rnd(1,cfg.val);return rnd(d==1?1:10**(d-1),10**d-1)}
+function mk(){
+ for(let t=0;t<80;t++){
+  const p=[num()];
+  let term=p[0];for(let i=0;i<cfg.ops;i++){const o=cfg.to==='static'?cfg.sop:'+−×÷'[rnd(0,3)];let n;if(o==='÷'){const lim=Math.min(term,10**cfg.val-1),ds=[];for(let d=2;d<=lim;d++)if(term%d===0)ds.push(d);n=ds.length?ds[rnd(0,ds.length-1)]:1;term=term/n}else{n=num();term=o==='×'?term*n:n}p.push(o,n)}
+  const a=Function('return '+p.join('').replace(/−/g,'-').replace(/×/g,'*').replace(/÷/g,'/'))();
+  if(Number.isInteger(a)&&a>=0&&a<1e9&&!(t<40&&/÷ 1( |$)/.test(p.join(' '))))return{t:p.join(' '),a};
+ }
+ const p=[num()];for(let i=0;i<cfg.ops;i++)p.push('+',num());
+ return{t:p.join(' '),a:eval(p.join(''))};
+}
+function render(){
+ for(const k in R){const e=$('#v-'+k);if(!e)continue;e.textContent=k==='dead'?(cfg.dead?cfg.dead+'s':'∞'):k==='sec'?pad2(cfg.sec):cfg[k]}
+ $$('.seg').forEach(g=>$$('button',g).forEach(b=>b.classList.toggle('on',cfg[g.dataset.t]===b.dataset.v)));
+ $('#sopRow').style.display=cfg.to==='static'?'flex':'none';
+ $('#prev').textContent=mk().t+' = ?';
+}
+document.addEventListener('click',e=>{
+ const b=e.target.closest('button');if(!b)return;
+ if(b.dataset.go)show(b.dataset.go);
+ if(b.dataset.k&&b.closest('#setup')){const k=b.dataset.k,[lo,hi]=R[k];cfg[k]=Math.min(hi,Math.max(lo,cfg[k]+ +b.dataset.d));render()}
+ const g=b.closest('.seg');if(g){cfg[g.dataset.t]=b.dataset.v;render()}
+});
+$('#go').onclick=start;$('#again').onclick=start;
+$('#quit').onclick=()=>{clearInterval(G.tm);G.done=1;show('home')};
+
+// keypad
+const pad=$('#pad');
+[7,8,9,'C',4,5,6,'⌫',1,2,3,'enter'].forEach(k=>mkKey(k));
+mkKey(0);
+function mkKey(k){const b=document.createElement('button');b.className='key'+(k==='C'?' c':k==='enter'?' e':'');b.textContent=k==='enter'?'ENTER':k;b.dataset.p=k;if(k===0)b.style.gridColumn='1/4';pad.appendChild(b)}
+pad.addEventListener('click',e=>{const b=e.target.closest('.key');if(b)press(b.dataset.p)});
+addEventListener('keydown',e=>{if(!$('#game').classList.contains('on'))return;
+ if(/^\d$/.test(e.key))press(e.key);else if(e.key==='Backspace')press('⌫');else if(e.key==='Enter')press('enter');else if(e.key==='Delete'||e.key==='Escape')press('C')});
+
+let G={};
+function start(){
+ try{localStorage.setItem('mb2cfg',JSON.stringify(cfg))}catch(e){}
+ clearInterval(G.tm);
+ G={i:0,right:0,t0:Date.now(),tot:(cfg.min*60+cfg.sec)*1000,buf:'',lock:false,done:false};
+ show('game');next();G.tm=setInterval(tick,100);
+}
+function next(){
+ if(G.i>=cfg.q)return fin();
+ G.q=mk();G.buf='';G.lock=false;G.qs=Date.now();
+ $('#disp').className='';$('#q').textContent=G.q.t+' =';$('#a').textContent='';hud();
+}
+function press(k){
+ if(G.lock||G.done)return;
+ if(k==='C')G.buf='';
+ else if(k==='⌫')G.buf=G.buf.slice(0,-1);
+ else if(k==='enter')return submit(false);
+ else if(G.buf.length<9)G.buf+=k;
+ $('#a').textContent=G.buf;
+}
+function submit(timeout){
+ if(G.lock||G.done||(!timeout&&!G.buf))return;
+ const ok=!timeout&&+G.buf===G.q.a;G.lock=true;G.i++;
+ if(ok)G.right++;
+ $('#disp').className=ok?'ok':'no';
+ $('#a').textContent=ok?G.buf:(timeout?'Waktu habis → ':G.buf+' → ')+G.q.a;
+ try{navigator.vibrate&&navigator.vibrate(ok?15:[40,30,40])}catch(e){}
+ hud();setTimeout(()=>{if(!G.done)next()},ok?350:1100);
+}
+function tick(){
+ const now=Date.now();
+ if(G.tot&&now-G.t0>=G.tot)return fin();
+ if(cfg.dead&&!G.lock&&now-G.qs>=cfg.dead*1000)submit(true);
+ hud();
+}
+function hud(){
+ const now=Date.now(),el=now-G.t0;
+ $('#h-q').textContent=Math.min(G.i+(G.lock?0:1),cfg.q)+' / '+cfg.q;
+ $('#h-r').textContent=G.right;
+ $('#h-tl').firstChild.textContent=G.tot?'Timer':'Waktu';
+ $('#h-t').textContent=fmt(G.tot?G.tot-el:el);
+ $('#h-d').textContent=cfg.dead?Math.max(0,cfg.dead-(now-G.qs)/1000).toFixed(1)+'s':'∞';
+ $('#pb').style.width=(G.i/cfg.q*100)+'%';
+ $('#qb').style.width=cfg.dead&&!G.lock?Math.max(0,100-(now-G.qs)/(cfg.dead*10))+'%':'0%';
+}
+function fin(){
+ if(G.done)return;G.done=true;clearInterval(G.tm);
+ const el=Date.now()-G.t0,c=G.i,q=cfg.q,acc=c?G.right/c:0,avg=el/1000/Math.max(c,1);
+ const par=2+1.6*cfg.ops+0.9*cfg.val,speed=Math.min(1,Math.max(0,1-(avg-par)/(par*2)));
+ const rating=Math.round(G.right/q*80+c/q*10+speed*(c?10:0));
+ const em=rating>=90?'🤯':rating>=75?'😎':rating>=50?'🙂':'😅';
+ const nt=rating>=90?'Luar biasa, otak kamu kayak kalkulator!':rating>=75?'Keren, tinggal sedikit lagi sempurna.':rating>=50?'Lumayan, coba lagi biar lebih cepat.':'Santai, latihan lagi pasti naik.';
+ $('#rt').textContent=rating;$('#re').textContent=em;$('#rn').textContent=nt;
+ $('#f-c').textContent=c+'/'+q+(c<q?' (waktu habis)':' complete');
+ $('#f-r').textContent=G.right+'/'+c+' Right';
+ $('#f-a').textContent=Math.round(acc*100)+'%';
+ $('#f-t').textContent=fmt(el);
+ $('#f-v').textContent=avg.toFixed(1)+' detik';
+ if(rating>best){best=rating;try{localStorage.setItem('mb2best',best)}catch(e){}}
+ show('fin');
+}
+render();show('home');
+</script></body></html>
